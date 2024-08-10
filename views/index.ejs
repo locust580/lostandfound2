@@ -1,0 +1,36 @@
+<div class="author">
+    <h1 class="author__heading">WA Lost and Found</h1>
+    <p class="author__body">Find all your lost apparel here!</p>
+</div>
+  
+<img src="/imgs/WAfront.jpg" alt="person looking out through window" class="hero-image" width="981" height="528">
+  
+  <section class="articles">
+    <h2 class="articles__heading">Latest Posts</h2>
+  
+    <ul class="article-ul">
+      <% data.forEach(post => { %>
+        <li>
+          <a href="/post/<%= post._id %>">
+            <span><%= post.title %></span>
+            <span class="article-list__date"><%= post.createdAt.toDateString() %></span>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+  
+    <% if (nextPage !== null) { %>
+      <a href="/?page=<%= nextPage %>" class="pagination">&lt; View Older Posts</a>
+    <% } %>
+
+
+</section>
+
+<body onload="loadPosts()">
+    <input type="file" name="imgfile" accept="image/jpeg" id="imgFile">
+    <button id="submitButton">Submit</button>
+    <div class="" id="images"></div>
+    <script src="submit.js"></script>
+</body>
+
+
