@@ -1,3 +1,5 @@
+require('dotenv').config(); 
+
 const express = require('express');
 const expressLayout = require('express-ejs-layouts');
 const methodOverride = require('method-override');
@@ -32,18 +34,9 @@ app.use(session({
 
 
 
-const path = require('path');
-const { Storage } = require('@google-cloud/storage');
-const Multer = require('multer');
-const src = path.join(__dirname,"views");
 
-//establishes two static asset directories
-//src is from google bin tutorial
-//public is from express tutorial
-app.use(express.static(src));
-app.use(express.static('public'));
 
-require('dotenv').config(); 
+
 
 
 
@@ -53,11 +46,30 @@ app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
 
-
+//for the helpers thing (WIP)
 app.locals.isActiveRoute = isActiveRoute;
+
+
+
+
+
 
 //multer wack but used for middleman file transfer via request objects
 //something something https://www.npmjs.com/package/multer
+const path = require('path');
+const { Storage } = require('@google-cloud/storage');
+
+const src = path.join(__dirname,"views");
+
+//establishes two static asset directories
+//src is from google bin tutorial
+//public is from express tutorial
+app.use(express.static(src));
+app.use(express.static('public'));
+
+
+const Multer = require('multer');
+
 const multer = Multer({
     storage: Multer.memoryStorage(),
     limits : {
@@ -65,8 +77,6 @@ const multer = Multer({
     },
 });
 
-//all google cloud stuff; what this whole thing is for
-//lol i don't know how to host a database for img files without blobbing everything
 let projectId = 'top-moment-426818-q4';
 let keyFilename = 'key.json';
 

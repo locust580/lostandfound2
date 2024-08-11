@@ -3,7 +3,7 @@
   <a href="/dashboard" class="btn">&larr; Back</a>
 </div>
 
-<form action="/add-post" method="POST">
+<form action="/add-post" method="POST" enctype="multipart/form-data">
 
   <label for="title"><b>Title</b></label>
   <input type="text" placeholder="Post Title" name="title">
@@ -11,10 +11,10 @@
   <label for="body"><b>Content</b></label>
   <textarea name="body" cols="50" rows="10"></textarea>
 
-  <input type="file" name="imgfile" accept="image/jpeg" id="imgFile">
+  <input for="image" type="file" name="imgfile" accept="image/jpeg" id="imgFile">
   <!-- <div class="" id="images"></div> -->
   <input type="submit" id="submitButton" value="Add" class="btn">
 
-  <script src="../submit.js"></script>
+  <!-- <script src="../submit.js"></script> -->
   
 </form>

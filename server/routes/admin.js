@@ -8,6 +8,13 @@ const jwt = require('jsonwebtoken');
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
 
+const multer = require('multer');
+const upload = multer({
+  dest: 'image-uploads/',
+  limits : {
+    fileSize: 6 * 1024 * 1024,
+  },
+})
 
 
 /**
@@ -156,12 +163,14 @@ router.get('/add-post', authMiddleware, async (req, res) => {
  * Create New Post
  */
 
-router.post('/add-post', authMiddleware, async (req, res) => {
+router.post('/add-post', authMiddleware, upload.single('imgfile'), async (req, res) => {
   try {
     try {
+      console.log(req.file);
       const newPost = new Post({
         title: req.body.title,
         body: req.body.body,
+        imagePath: req.file.filename,
         createdAt: Date.now()
       })
 
