@@ -4,17 +4,28 @@ const Post = require('../models/Post');
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const path = require('path');
+
 
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
 
 const multer = require('multer');
-const upload = multer({
-  dest: 'image-uploads/',
-  limits : {
-    fileSize: 6 * 1024 * 1024,
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "public/imgs/")
   },
+
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + path.extname(file.originalname))
+  }
 })
+
+
+const upload = multer({
+  storage: storage
+  },
+)
 
 
 /**
@@ -37,19 +48,6 @@ const authMiddleware = (req, res, next) => {
   }
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -134,7 +132,7 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
 
 /**
  * Get /
- * Create New Post Page
+ * Page for making new posts
  */
 
 router.get('/add-post', authMiddleware, async (req, res) => {
