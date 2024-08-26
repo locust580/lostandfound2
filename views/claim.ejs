@@ -1,0 +1,27 @@
+<div class="admin-title">
+  <h1>Claim: <%= data.title %></h1>
+  <a onclick="window.history.back()" class="btn">&larr; Back</a>
+</div>
+
+<img src="/image-uploads/<%= data.imagePath %>" alt="" class="post-image">
+
+<form action="https://api.web3forms.com/submit" method="POST">
+
+  <input type="hidden" name="access_key" value="<%= apiKey %>">
+
+  <label for="name"><b>Name</b></label>
+  <input type="text" placeholder="eg. 'Jane Doe'" name="name" required>
+
+  <label for="email"><b>Email</b></label>
+  <input type="text" placeholder="eg. 'janedoe@domain.com'" name="email" required>
+
+  <textarea name="request" style="display: none;">
+    Item Requested: <%= data.title %>
+    ID of item: <%= data._id %>
+    Item Tags: <%= data.body %>
+  </textarea>
+
+  <input type="submit" id="submitButton" value="Submit Request" class="btn">
+
+  
+</form>

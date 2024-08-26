@@ -5,15 +5,16 @@ const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const path = require('path');
-
+const fs = require('fs');
 
 const adminLayout = '../views/layouts/admin';
 const jwtSecret = process.env.JWT_SECRET;
 
 const multer = require('multer');
+const { error } = require('console');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/imgs/")
+    cb(null, "public/image-uploads/")
   },
 
   filename: (req, file, cb) => {
@@ -238,7 +239,21 @@ router.put('/edit-post/:id', authMiddleware, async (req, res) => {
 router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
   try {
 
+    postData = await Post.findById(req.params.id);
+
+    console.log(postData);
+
+    try {
+      fs.unlink("public/image-uploads/" + postData.imagePath, (err) => {
+        if (err) throw err;
+        console.log(`${postData.imagePath} was deleted`);
+      });
+    } catch (err) {
+      console.log(err);
+    }
+    
     await Post.deleteOne( { _id: req.params.id } );
+
     res.redirect('/dashboard');
 
   } catch (error) {

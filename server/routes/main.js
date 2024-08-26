@@ -64,7 +64,31 @@ router.get('/post/:id', async (req, res) => {
         console.log(error);
     }
   
-  });
+});
+
+router.get('/claim/:id', async (req, res) => {
+    try {
+        
+        let slug = req.params.id;
+
+        const data = await Post.findById({ 
+            _id: slug,
+        });
+
+        const apiKey = process.env.emailAPIKey;
+
+        const locals = {
+            title: data.title,
+            description: "Lost and Found",
+        }
+
+        res.render('claim', { locals, data, apiKey });
+
+    }   catch (error) {
+        console.log(error);
+    }
+  
+});
 
 router.post('/search', async (req, res) => {
   try {

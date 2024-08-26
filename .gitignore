@@ -3,4 +3,4 @@ node_modules/
 key.json
 erm.txt
 useless/
-image-uploads/
+public/image-uploads
