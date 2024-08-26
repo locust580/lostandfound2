@@ -79,7 +79,7 @@ router.get('/claim/:id', async (req, res) => {
 
         const locals = {
             title: data.title,
-            description: "Lost and Found",
+            description: "LF Claim Item",
         }
 
         res.render('claim', { locals, data, apiKey });
@@ -119,7 +119,22 @@ router.post('/search', async (req, res) => {
 
 });
 
+router.get('/contact', async (req, res) => {
+    try {
+        
+        const locals = {
+            title: "Contact",
+            description: "LF Contact Form",
+        }
 
+        const apiKey = process.env.emailAPIKey;
+
+        res.render('contact', { locals, apiKey });
+
+    } catch (error) {
+        console.log(error)
+    }
+})
 
 
 
@@ -128,7 +143,13 @@ router.post('/search', async (req, res) => {
 
 
 router.get('/about', (req, res) => {
-    res.render('about');
+
+    const locals = {
+        title: "About",
+        description: "About WALF",
+    }
+
+    res.render('about', { locals });
 })
 
 module.exports = router;

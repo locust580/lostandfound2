@@ -1,15 +1,15 @@
 <div class="admin-title">
-  <h2>Add New Post</h2>
+  <h2>Add New Item</h2>
   <a href="/dashboard" class="btn">&larr; Back</a>
 </div>
 
 <form action="/add-post" method="POST" enctype="multipart/form-data">
 
-  <label for="title"><b>Title</b></label>
-  <input type="text" placeholder="Post Title" name="title">
+  <label for="title"><b>Item</b></label>
+  <input type="text" placeholder="eg. 'Red Jacket'" name="title">
 
-  <label for="body"><b>Content</b></label>
-  <textarea name="body" cols="50" rows="10"></textarea>
+  <label for="body"><b>Tags</b></label>
+  <textarea name="body" cols="50" rows="10" placeholder="eg. 'jacket', 'blue', 'wa-apparel', 'no-name'"></textarea>
 
   <input for="image" type="file" name="imgfile" accept="image/jpeg" id="imgFile">
   <!-- <div class="" id="images"></div> -->

@@ -1,0 +1,21 @@
+<div class="admin-title">
+  <h1>Contact</h1>
+  <a onclick="window.history.back()" class="btn">&larr; Back</a>
+</div>
+
+<form action="https://api.web3forms.com/submit" method="POST">
+
+  <input type="hidden" name="access_key" value="<%= apiKey %>">
+
+  <label for="name"><b>Name</b></label>
+  <input type="text" placeholder="eg. 'Jane Doe'" name="name" required>
+
+  <label for="email"><b>Email</b></label>
+  <input type="text" placeholder="eg. 'janedoe@domain.com'" name="email" required>
+
+  <textarea name="body" placeholder="Questions, Comments, Concerns?"></textarea>
+
+  <input type="submit" id="submitButton" value="Contact" class="btn">
+
+  
+</form>
