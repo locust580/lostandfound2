@@ -1,18 +1,23 @@
 <div class="admin-title">
   <h2>View / Edit Post</h2>
   <form action="/delete-post/<%= data._id %>?_method=DELETE" method="POST">
-    <input type="submit" value="Delete" class="btn-delete btn">
+    <input type="submit" value="Delete" class="btn btn-delete">
   </form>
-
+  <a onclick="window.history.back()" class="btn">&larr; Back</a>
 </div>
 
-<form action="/edit-post/<%= data._id %>?_method=PUT" method="POST">
+<form action="/edit-post/<%= data._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+
+  <img src="/image-uploads/<%= data.imagePath %>" alt="<%= data.body %>" class="post-image">
 
   <label for="title"><b>Title</b></label>
   <input type="text" value="<%= data.title %>" name="title">
 
   <label for="body"><b>Content</b></label>
   <textarea name="body" cols="50" rows="10"><%= data.body %></textarea>
+
+  <label for="image"><b>Image</b></label>
+  <input for="image" type="file" name="imgfile" accept="image/jpeg" id="imgFile">
 
   <input type="submit" value="Update" class="btn">
 
