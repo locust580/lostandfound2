@@ -11,7 +11,7 @@ const connectDB = require('./server/config/db');
 const isActiveRoute = require('./server/helpers/routeHelpers');
 
 const app = express();
-const port = 5000 || process.env.PORT;
+const port = 8080 || process.env.PORT;
 
 //Connect to DB
 connectDB();
@@ -115,7 +115,7 @@ app.post('/upload', multer.single('imageFile'), (req,res) => {
     }
 })
 
-//sets up express server on port 8080
+//sets up express server on port whatever the port is lol
 
 app.use('/', require('./server/routes/main'));
 app.use('/', require('./server/routes/admin'));

@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
+const searchFor = require('../helpers/search');
 
 
 
 
-
-
+//home page
 
 router.get('', async (req, res) => {
     try {
@@ -41,6 +41,7 @@ router.get('', async (req, res) => {
 })
 
 
+//post access pages
 
 router.get('/post/:id', async (req, res) => {
     try {
@@ -66,6 +67,8 @@ router.get('/post/:id', async (req, res) => {
   
 });
 
+//seperate claim pages 
+
 router.get('/claim/:id', async (req, res) => {
     try {
         
@@ -90,34 +93,31 @@ router.get('/claim/:id', async (req, res) => {
   
 });
 
+//search function
+
 router.post('/search', async (req, res) => {
-  try {
-
-    const locals = {
-        title: "Search",
-        description: "Search"
-      }
-    
-    let searchTerm = req.body.searchTerm;
-    const searchNoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9 ]/g, "");
-
-    const data = await Post.find({
-        $or: [
-            { title: { $regex: new RegExp(searchNoSpecialChar, 'i') }},
-            { body: { $regex: new RegExp(searchNoSpecialChar, 'i') }}
-        ]
-    });
-
-    res.render("search", {
-        data,
-        locals
-    });
-
-  } catch (error) {
-    console.log(error);
-  }
-
+    try {
+  
+      const locals = {
+          title: "Search",
+          description: "Search"
+        }
+      
+      let searchTerm = req.body.searchTerm;
+      let data = await searchFor(searchTerm);
+      
+      res.render("search", {
+          data,
+          locals
+      });
+  
+    } catch (error) {
+      console.log(error);
+    }
+  
 });
+
+//contact page
 
 router.get('/contact', async (req, res) => {
     try {
@@ -140,7 +140,7 @@ router.get('/contact', async (req, res) => {
 
 
 
-
+//about page
 
 router.get('/about', (req, res) => {
 

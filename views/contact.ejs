@@ -6,6 +6,9 @@
 <form action="https://api.web3forms.com/submit" method="POST">
 
   <input type="hidden" name="access_key" value="<%= apiKey %>">
+  <input type="hidden" name="subject" value=`${name} sent a message`>
+  <input type="hidden" name="redirect" value="/">
+
 
   <label for="name"><b>Name</b></label>
   <input type="text" placeholder="eg. 'Jane Doe'" name="name" required>
@@ -15,7 +18,11 @@
 
   <textarea name="body" placeholder="Questions, Comments, Concerns?"></textarea>
 
+  <div class="h-captcha" data-captcha="true"></div>
+
   <input type="submit" id="submitButton" value="Contact" class="btn">
 
   
 </form>
+
+<script src="https://web3forms.com/client/script.js" async defer></script>

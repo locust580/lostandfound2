@@ -215,13 +215,18 @@ router.get('/edit-post/:id', authMiddleware, async (req, res) => {
  * Edit Posts
  */
 
-router.put('/edit-post/:id', authMiddleware, async (req, res) => {
+router.put('/edit-post/:id', authMiddleware, upload.single('imgfile'), async (req, res) => {
   try {
-
     await Post.findByIdAndUpdate(req.params.id, { 
       title: req.body.title,
       body: req.body.body,
+      imagePath: req.file.filename,
       updatedAt: Date.now()
+    }).then(async (Post) => {
+      console.log(Post)
+      await fs.unlink("public/image-uploads/" + Post.imagePath, (err) => {
+        if (err) console.log(err);
+      })
     })
 
     res.redirect(`/edit-post/${req.params.id}`);
